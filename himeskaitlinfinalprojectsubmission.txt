@@ -1,0 +1,102 @@
+from tkinter import *
+from tkinter import messagebox
+from PIL import ImageTk, Image 
+
+root = Tk()
+root.title("A Coffee Lovers Dream")
+root.geometry("1000x1000")
+root.iconbitmap('c:/gui/favicon.ico')
+
+
+bg = PhotoImage(file ='c:/gui/co.png')
+my_label = Label(root,image = bg)
+my_label.place(x=0, y=0, relwidth=1, relheight =1) #setting the size
+
+
+my_label2 = Label(root, text="A Coffee Lovers Dream",font='Helvetica 35').pack()
+my_label3 = Label(root, text="Menu items:", font='Helvetica 25').place(x=400, y=220 )
+
+def viewSelected():
+    choice  = var.get()
+    if choice == 1:
+       output = "Regular coffee"
+       print("customer wants a regular coffee")
+    elif choice == 2:
+       output =  "Expresso"
+       print("customer wants an expresso coffee")
+    elif choice == 3:
+        output =  "Decaf"
+        print("Customer wants a decaf coffee")
+    elif choice == 4:
+        output = "Hot Chocolate"
+        print("customer wants a hot chocolate")
+    else:
+        output = "Error"
+    return messagebox.showinfo('Order confirmed!', f'You Selected {output}. Please see cashier to pay your bill.')
+
+exit_Button = Button(root, text="Exit Program", command=root.destroy).place(x=450, y=500)
+   
+var = IntVar()
+Radiobutton(root, text="Regular", variable=var, value=1, command=viewSelected).place(x=450, y=280)
+Radiobutton(root, text="Expresso", variable=var, value=2, command=viewSelected).place(x=450, y=300)
+Radiobutton(root, text="Decaf", variable=var, value=3, command=viewSelected).place(x=450, y=320)
+Radiobutton(root,text="Hot Chocolate",variable=var, value=4, command=viewSelected).place(x=450, y=340)
+
+import tkinter as tk
+import tkinter.messagebox
+root = tk.Tk()
+root.geometry('200x400')
+
+class NewUser:
+
+    def __init__(self):
+
+        self.name = None
+        self.phone = None 
+
+        root.title("Order")
+
+        self.headerLabel  = tk.Label (root, text = "Get user info!\n")
+        self.nameLabel    = tk.Label (root, text = "Please enter your name: ")
+        self.nameField    = tk.Entry (root)
+        self.submitButton = tk.Button(root, text = "Submit", command = self.saveName)
+
+        self.headerLabel.grid (row = 0, column = 0, columnspan = 2)
+        self.nameLabel.grid   (row = 1, column = 0, sticky = "W")
+        self.nameField.grid   (row = 2, column = 0)
+        self.submitButton.grid(row = 3, column = 0, columnspan = 2, sticky = "EW")
+        
+
+        self.phoneLabel    = tk.Label (root, text = "Please enter your phone number: ")
+        self.phoneField   = tk.Entry (root)
+        self.submitButton = tk.Button(root, text = "Submit", command = self.savePhone)
+
+        self.phoneLabel.grid   (row = 4, column = 0, sticky = "W")
+        self.phoneField.grid   (row = 5, column = 0)
+        self.submitButton.grid(row = 6, column = 0, columnspan = 2, sticky = "EW")
+        exit_Button = Button(root, text="Exit Window", command=root.destroy).grid(row = 8, column = 0)
+    def saveName(self):
+
+        name = self.nameField.get()
+
+        if name.isalpha() and name != "":
+            self.name = name
+            print("Name saved: {}".format(self.name))
+            tkinter.messagebox.showinfo("confirmed", "Thanks!")
+        else:
+            tkinter.messagebox.showinfo("Error!", "That is not a valid name.")
+   
+    def savePhone(self):
+
+        phone = self.phoneField.get()
+
+        if phone.isdigit():
+            self.phone = phone
+            print("phone saved: {}".format(self.phone))
+            tkinter.messagebox.showinfo("confirmed", "Make your drink selection!")
+        else:
+            tkinter.messagebox.showinfo("Error!", "That is not a valid entry!")
+user = NewUser()
+
+    
+root.mainloop()
