@@ -1,102 +1,131 @@
+""" 
+    Kat's coffee application. The purpose of this program is to provide a service. 
+    The application collects user name, phone # and drink order. A confirmation 
+    message will appear when the user completes order. 
+
+    This program was written by @khimes on Monday Dec 12 2022.
+
+"""
+# import modules
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image 
 
+# create window and define 
 root = Tk()
 root.title("A Coffee Lovers Dream")
-root.geometry("1000x1000")
-root.iconbitmap('c:/gui/favicon.ico')
+root.geometry("500x500")
 
-
-bg = PhotoImage(file ='c:/gui/co.png')
+# add images to file
+root.iconbitmap('c:/gui/favicon.ico') # logo
+bg = PhotoImage(file ='c:/gui/co.png') # background
 my_label = Label(root,image = bg)
 my_label.place(x=0, y=0, relwidth=1, relheight =1) #setting the size
 
-
+# welcome label 
 my_label2 = Label(root, text="A Coffee Lovers Dream",font='Helvetica 35').pack()
-my_label3 = Label(root, text="Menu items:", font='Helvetica 25').place(x=400, y=220 )
+my_label3 = Label(root, text="Menu items:", font='Helvetica 25').place(x=150, y=150 )
 
 def viewSelected():
+# function to get user input from radio buttons
+# see menu
     choice  = var.get()
     if choice == 1:
-       output = "Regular coffee"
-       print("customer wants a regular coffee")
+       output = "Regular coffee" # show customer
+       print("Customer wants a regular coffee") # print to terminal 
     elif choice == 2:
-       output =  "Expresso"
-       print("customer wants an expresso coffee")
+       output =  "Expresso" # show customer
+       print("Customer wants an expresso") # print to terminal 
     elif choice == 3:
-        output =  "Decaf"
-        print("Customer wants a decaf coffee")
+        output =  "Decaf" # show customer
+        print("Customer wants a Decaf coffee") # print to terminal 
     elif choice == 4:
-        output = "Hot Chocolate"
-        print("customer wants a hot chocolate")
+        output = "Hot Chocolate" # show customer 
+        print("Customer wants a hot chocolate") # print to terminal 
     else:
         output = "Error"
-    return messagebox.showinfo('Order confirmed!', f'You Selected {output}. Please see cashier to pay your bill.')
+    return messagebox.showinfo('Order confirmed!', f'You Selected {output}. Please see cashier to pay your bill.') # confirm 
 
-exit_Button = Button(root, text="Exit Program", command=root.destroy).place(x=450, y=500)
-   
+exit_Button = Button(root, text="Exit Program", command=root.destroy).place(x=400, y=400) # exit button 
+
+# assign values for buttons for function viewSelected   
+
 var = IntVar()
-Radiobutton(root, text="Regular", variable=var, value=1, command=viewSelected).place(x=450, y=280)
-Radiobutton(root, text="Expresso", variable=var, value=2, command=viewSelected).place(x=450, y=300)
-Radiobutton(root, text="Decaf", variable=var, value=3, command=viewSelected).place(x=450, y=320)
-Radiobutton(root,text="Hot Chocolate",variable=var, value=4, command=viewSelected).place(x=450, y=340)
+Radiobutton(root, text="Regular", variable=var, value=1, command=viewSelected).place(x=200, y=260)
+Radiobutton(root, text="Expresso", variable=var, value=2, command=viewSelected).place(x=200, y=200)
+Radiobutton(root, text="Decaf", variable=var, value=3, command=viewSelected).place(x=200, y=220)
+Radiobutton(root,text="Hot Chocolate",variable=var, value=4, command=viewSelected).place(x=200, y=240)
 
+# import modules for new class
 import tkinter as tk
 import tkinter.messagebox
 root = tk.Tk()
-root.geometry('200x400')
+root.geometry('400x200')
+
+# Create class to collect user input
+# validation for name and phone
 
 class NewUser:
 
     def __init__(self):
 
-        self.name = None
-        self.phone = None 
+        self.name = None # set value
+        self.phone = None # set value 
 
         root.title("Order")
-
-        self.headerLabel  = tk.Label (root, text = "Get user info!\n")
+        # create labels, entry, button for name
+        self.headerLabel  = tk.Label (root, text = "Get user info!\n") 
         self.nameLabel    = tk.Label (root, text = "Please enter your name: ")
         self.nameField    = tk.Entry (root)
         self.submitButton = tk.Button(root, text = "Submit", command = self.saveName)
-
+        # place on window
         self.headerLabel.grid (row = 0, column = 0, columnspan = 2)
         self.nameLabel.grid   (row = 1, column = 0, sticky = "W")
         self.nameField.grid   (row = 2, column = 0)
         self.submitButton.grid(row = 3, column = 0, columnspan = 2, sticky = "EW")
         
-
+        # create labels, entry, button for phone
         self.phoneLabel    = tk.Label (root, text = "Please enter your phone number: ")
         self.phoneField   = tk.Entry (root)
         self.submitButton = tk.Button(root, text = "Submit", command = self.savePhone)
-
+        # place on window 
         self.phoneLabel.grid   (row = 4, column = 0, sticky = "W")
         self.phoneField.grid   (row = 5, column = 0)
         self.submitButton.grid(row = 6, column = 0, columnspan = 2, sticky = "EW")
-        exit_Button = Button(root, text="Exit Window", command=root.destroy).grid(row = 8, column = 0)
+        exit_Button = Button(root, text="Exit Window", command=root.destroy).grid(row = 8, column = 0) #exit
+    
+    # function for name validation 
+    # user can only enter letters
+    # no numbers or special characters 
+    # entry cant be empty 
+    
     def saveName(self):
 
         name = self.nameField.get()
 
-        if name.isalpha() and name != "":
+        if name.isalpha() and name != "": # validate 
             self.name = name
-            print("Name saved: {}".format(self.name))
-            tkinter.messagebox.showinfo("confirmed", "Thanks!")
+            print("Name saved: {}".format(self.name)) # terminal 
+            tkinter.messagebox.showinfo("confirmed", "Thanks!") # confirmation 
         else:
-            tkinter.messagebox.showinfo("Error!", "That is not a valid name.")
-   
+            tkinter.messagebox.showinfo("Error!", "That is not a valid name.") # error 
+    
+    # function for phone validation 
+    # user can only enter numbers
+    # no letters, special characters, or spaces 
+    # entry cannot be empty 
+    
     def savePhone(self):
 
-        phone = self.phoneField.get()
+        phone = self.phoneField.get() # get entry 
 
-        if phone.isdigit():
+        if phone.isdigit(): # validate 
             self.phone = phone
-            print("phone saved: {}".format(self.phone))
-            tkinter.messagebox.showinfo("confirmed", "Make your drink selection!")
+            print("phone saved: {}".format(self.phone)) # terminal 
+            tkinter.messagebox.showinfo("confirmed", "Make your drink selection!") # confirmation 
         else:
-            tkinter.messagebox.showinfo("Error!", "That is not a valid entry!")
-user = NewUser()
+            tkinter.messagebox.showinfo("Error!", "That is not a valid entry!") # error
+user = NewUser() # create new user
 
     
 root.mainloop()
